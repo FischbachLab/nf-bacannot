@@ -31,6 +31,7 @@ process PROKKA {
     rnammer = (params.prokka_use_rnammer)  ? "--rnammer"                                 : ''
     models  = (params.prokka_use_pgap)     ? "PGAP_NCBI.hmm" : "TIGRFAMs_15.0.hmm"
     """
+    ls /mnt/efs/databases/
     # save prokka version
     prokka -v &> prokka_version.txt ;
 
