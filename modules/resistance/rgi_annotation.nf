@@ -9,7 +9,7 @@ process CARD_RGI {
 
   input:
   tuple val(prefix), path(input)
-  path(bacannot_db)
+  file(bacannot_db)
 
   output:
   path "*RGI_${prefix}*"                                  , emit: all         optional true 
