@@ -53,7 +53,7 @@ workflow {
       """)
     }  else {
       // bacannot_db = file(params.bacannot_db, checkIfExists: true)
-      bacannot_db = file(params.bacannot_db)
+      bacannot_db = params.bacannot_db
     }
 
     // Load yaml
