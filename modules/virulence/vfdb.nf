@@ -18,7 +18,7 @@ process VFDB {
   run_blasts.py \\
       blastn \\
       --query $genes \\
-      --db ${bacannot_db}/vfdb_db/sequences \\
+      --db ${params.bacannot_db}/vfdb_db/sequences \\
       --minid ${params.blast_virulence_minid} \\
       --mincov ${params.blast_virulence_mincov} \\
       --threads $task.cpus \\

@@ -18,7 +18,7 @@ process PHAST {
   run_blasts.py \\
       blastp \\
       --query $genes \\
-      --db ${bacannot_db}/phast_db/diamond.dmnd \\
+      --db ${params.bacannot_db}/phast_db/diamond.dmnd \\
       --minid ${params.blast_MGEs_minid} \\
       --mincov ${params.blast_MGEs_mincov} \\
       --threads $task.cpus \\

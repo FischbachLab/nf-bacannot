@@ -41,7 +41,7 @@ process PROKKA {
     # get hmms that shall be used
     # PGAP contains TIGRFAM hmm models. When not skipping PGAP, TIGRFAM is not loaded.
     cp -r \$dbs_dir prokka_db
-    cp ${bacannot_db}/prokka_db/${models} prokka_db/hmm
+    cp ${params.bacannot_db}/prokka_db/${models} prokka_db/hmm
 
     # hmmpress
     ( cd  prokka_db/hmm/ ; for i in *.hmm ; do hmmpress -f \$i ; done )

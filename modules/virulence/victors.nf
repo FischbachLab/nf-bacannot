@@ -18,7 +18,7 @@ process VICTORS {
   run_blasts.py \\
       blastp \\
       --query $genes \\
-      --db ${bacannot_db}/victors_db/diamond.dmnd \\
+      --db ${params.bacannot_db}/victors_db/diamond.dmnd \\
       --minid ${params.blast_virulence_minid} \\
       --mincov ${params.blast_virulence_mincov} \\
       --threads $task.cpus \\

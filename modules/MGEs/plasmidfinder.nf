@@ -28,7 +28,7 @@ process PLASMIDFINDER {
       -l \$mincov \\
       -t \$minid \\
       -x \\
-      --databasePath ${bacannot_db}/plasmidfinder_db
+      --databasePath ${params.bacannot_db}/plasmidfinder_db
 
   # Remove tmp
   rm -rf plasmidfinder/tmp

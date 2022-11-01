@@ -23,7 +23,7 @@ process RESFINDER {
   if (resfinder_species.toLowerCase() != "other")
   """
   # Make databases available
-  ln -rs ${bacannot_db}/resfinder_db/db_* \$(dirname \$(which run_resfinder.py))
+  ln -rs ${params.bacannot_db}/resfinder_db/db_* \$(dirname \$(which run_resfinder.py))
 
   # Run resfinder acquired resistance
   run_resfinder.py \\
@@ -57,7 +57,7 @@ process RESFINDER {
   else if (resfinder_species.toLowerCase() == "other")
   """
   # Make databases available
-  ln -rs ${bacannot_db}/resfinder_db/db_* \$(dirname \$(which run_resfinder.py))
+  ln -rs ${params.bacannot_db}/resfinder_db/db_* \$(dirname \$(which run_resfinder.py))
 
   # Run resfinder acquired resistance
   run_resfinder.py \\

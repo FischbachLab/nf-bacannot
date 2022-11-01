@@ -25,7 +25,7 @@ process ICEBERG {
   run_blasts.py \\
       blastp \\
       --query $genes_aa \\
-      --db ${bacannot_db}/iceberg_db/diamond.dmnd \\
+      --db ${params.bacannot_db}/iceberg_db/diamond.dmnd \\
       --minid ${params.blast_MGEs_minid} \\
       --mincov ${params.blast_MGEs_mincov} \\
       --threads $task.cpus \\
@@ -36,7 +36,7 @@ process ICEBERG {
   ### The blast db was throwing errors
   makeblastdb \\
       -dbtype nucl \\
-      -in ${bacannot_db}/iceberg_db/sequences \\
+      -in ${params.bacannot_db}/iceberg_db/sequences \\
       -out sequences ;
   run_blasts.py \\
       blastn \\

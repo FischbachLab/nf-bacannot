@@ -26,7 +26,7 @@ process PHIGARO {
 
   # create new config to properly load database
   cp \$(which config.yml) ./custom_config.yml ;
-  sed -i "s|CHANGE_PVOG|${bacannot_db}/phigaro_db/allpvoghmms|" ./custom_config.yml ;
+  sed -i "s|CHANGE_PVOG|${params.bacannot_db}/phigaro_db/allpvoghmms|" ./custom_config.yml ;
   HMM_BIN=\$(which hmmsearch) ;
   sed -i "s|CHANGE_HMMSEARCH|\$HMM_BIN|" ./custom_config.yml ;
   PRODIGAL_BIN=\$(which prodigal) ;

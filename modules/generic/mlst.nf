@@ -19,7 +19,7 @@ process MLST {
    """
    # update tool database
    mlst_dir=\$(which mlst | sed 's/bin\\/mlst//g')
-   cp ${bacannot_db}/mlst_db/* -r \${mlst_dir}/db/pubmlst/
+   cp ${params.bacannot_db}/mlst_db/* -r \${mlst_dir}/db/pubmlst/
    ( cd \$mlst_dir/scripts && ./mlst-make_blast_db )
 
    # Save mlst tool version
