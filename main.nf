@@ -42,18 +42,18 @@ workflow {
     if (params.input) {
 
     // check if user gave path to bacannot databases
-    if (!params.bacannot_db) {
-      // Message to user
-      exit("""
-      ERROR!
-      A major error has occurred!
-        ==> User forgot to set path to databases with --bacannot_db. Online documentation is available at: https://bacannot.readthedocs.io/en/latest/
-      Please, read the docs.
-      Cheers.
-      """)
-    } else {
-      bacannot_db = file(params.bacannot_db, checkIfExists: true)
-    }
+    // if (!params.bacannot_db) {
+    //   // Message to user
+    //   exit("""
+    //   ERROR!
+    //   A major error has occurred!
+    //     ==> User forgot to set path to databases with --bacannot_db. Online documentation is available at: https://bacannot.readthedocs.io/en/latest/
+    //   Please, read the docs.
+    //   Cheers.
+    //   """)
+    // } else {
+    //   bacannot_db = file(params.bacannot_db, checkIfExists: true)
+    // }
 
     // Load yaml
     samplesheet_yaml = file(params.input, checkIfExists: true)
