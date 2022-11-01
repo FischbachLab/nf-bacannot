@@ -23,7 +23,7 @@ process PLATON {
 
   # Run platon
   platon \\
-      --db ${bacannot_db}/platon_db/ \\
+      --db ${params.bacannot_db}/platon_db/ \\
       --output platon \\
       --threads $task.cpus \\
       $genome > tmp.txt || true ;

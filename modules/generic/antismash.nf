@@ -30,7 +30,7 @@ process ANTISMASH {
     --output-dir antiSMASH \\
     --genefinding-tool none \\
     -c $task.cpus \\
-    --databases ${bacannot_db}/antismash_db \\
+    --databases ${params.bacannot_db}/antismash_db \\
     $genbank ;
 
   # enter results dir

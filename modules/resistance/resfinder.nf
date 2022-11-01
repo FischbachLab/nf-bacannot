@@ -17,16 +17,16 @@ process RESFINDER {
     when:
     (resfinder_species && resfinder_species != "missing_resfinder")
 
-    script:
-    resistance_minid  = params.blast_resistance_minid / 100.00
-    resistance_mincov = params.blast_resistance_mincov / 100.00
-    if (resfinder_species.toLowerCase() != "other")
-    """
-    # activate env
-    source activate resfinder
+  script:
+  resistance_minid  = params.blast_resistance_minid / 100.00
+  resistance_mincov = params.blast_resistance_mincov / 100.00
+  if (resfinder_species.toLowerCase() != "other")
+  """
+  # activate env
+  source activate resfinder
 
-    # Make databases available
-    ln -rs ${bacannot_db}/resfinder_db/db_* \$(dirname \$(which run_resfinder.py))
+  # Make databases available
+  ln -rs ${params.bacannot_db}/resfinder_db/db_* \$(dirname \$(which run_resfinder.py))
 
     # Run resfinder acquired resistance
     run_resfinder.py \\
@@ -57,13 +57,13 @@ process RESFINDER {
         -i resfinder/ResFinder_results_tab.txt > resfinder/results_tab.gff ;
     """
 
-    else if (resfinder_species.toLowerCase() == "other")
-    """
-    # activate env
+  else if (resfinder_species.toLowerCase() == "other")
+  """
+  # activate env
     source activate resfinder
     
-    # Make databases available
-    ln -rs ${bacannot_db}/resfinder_db/db_* \$(dirname \$(which run_resfinder.py))
+  # Make databases available
+  ln -rs ${params.bacannot_db}/resfinder_db/db_* \$(dirname \$(which run_resfinder.py))
 
     # Run resfinder acquired resistance
     run_resfinder.py \\

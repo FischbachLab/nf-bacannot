@@ -25,8 +25,8 @@ process KOFAMSCAN {
 
   # Run kofamscan with detailed output
   exec_annotation \\
-      -p ${bacannot_db}/kofamscan_db/profiles/prokaryote.hal \\
-      -k ${bacannot_db}/kofamscan_db/ko_list \\
+      -p ${params.bacannot_db}/kofamscan_db/profiles/prokaryote.hal \\
+      -k ${params.bacannot_db}/kofamscan_db/ko_list \\
       -o KOfamscan/${prefix}_ko_detailed.txt \\
       --keep-tabular \\
       --cpu=$task.cpus \\
@@ -34,8 +34,8 @@ process KOFAMSCAN {
 
   # Re-run kofamscan with mapper-output
   exec_annotation \\
-      -p ${bacannot_db}/kofamscan_db/profiles/prokaryote.hal \\
-      -k ${bacannot_db}/kofamscan_db/ko_list \\
+      -p ${params.bacannot_db}/kofamscan_db/profiles/prokaryote.hal \\
+      -k ${params.bacannot_db}/kofamscan_db/ko_list \\
       -o KOfamscan/${prefix}_ko_forKEGGMapper.txt \\
       --reannotate \\
       --cpu=$task.cpus \\

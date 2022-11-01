@@ -34,7 +34,7 @@ process AMRFINDER {
       --coverage_min ${resistance_mincov} \\
       --name ${prefix} \\
       --protein_output ${prefix}_args.faa \\
-      --database ${bacannot_db}/amrfinder_db/latest
+      --database ${params.bacannot_db}/amrfinder_db/latest
   
   # filter results
   awk \\

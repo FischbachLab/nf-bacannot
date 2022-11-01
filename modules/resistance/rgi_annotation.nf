@@ -25,7 +25,7 @@ process CARD_RGI {
   source activate rgi
   
   # load database
-  rgi load --card_json ${bacannot_db}/card_db/card.json --local
+  rgi load --card_json ${params.bacannot_db}/card_db/card.json --local
 
   # get tool version
   rgi main --version > rgi_version.txt ;

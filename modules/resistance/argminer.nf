@@ -17,7 +17,7 @@ process ARGMINER {
   run_blasts.py \\
       blastp \\
       --query $genes \\
-      --db ${bacannot_db}/argminer_db/diamond.dmnd \\
+      --db ${params.bacannot_db}/argminer_db/diamond.dmnd \\
       --minid ${params.blast_resistance_minid} \\
       --mincov ${params.blast_resistance_mincov} \\
       --threads $task.cpus \\
