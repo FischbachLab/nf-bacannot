@@ -44,22 +44,27 @@ process ANTISMASH {
     -fopenfile ${gbk_prefix}.gbk \\
     -osformat gff \\
     -osname_outseq ${gbk_prefix} \\
-    -auto ;
+    -auto || echo "seqret failed.";
 
-  # get the locus tags annotated as list
-  grep \\
-    "locus_tag" \\
-    *region*gbk | \\
-    cut \\
-    -f 2 \\
-    -d "=" | \\
-    tr -d '"' | \\
-    sort -u > gene_ids.lst ;
+  if [ -f "*region*gbk" ]; then
+    # get the locus tags annotated as list
+    grep \\
+      "locus_tag" \\
+      *region*gbk | \\
+      cut \\
+      -f 2 \\
+      -d "=" | \\
+      tr -d '"' | \\
+      sort -u > gene_ids.lst ;
 
-  # subset regions GFF from main GFF for JBrowse
-  grep \\
-    -w \\
-    -f gene_ids.lst \\
-    ${gbk_prefix}.gff > regions.gff ;
+    # subset regions GFF from main GFF for JBrowse
+    grep \\
+      -w \\
+      -f gene_ids.lst \\
+      ${gbk_prefix}.gff > regions.gff ;
+  else
+    touch regions.gff
+    touch gene_ids.lst
+  fi
   """
 }
