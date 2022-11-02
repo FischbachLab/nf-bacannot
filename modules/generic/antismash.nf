@@ -44,7 +44,7 @@ process ANTISMASH {
     -fopenfile ${gbk_prefix}.gbk \\
     -osformat gff \\
     -osname_outseq ${gbk_prefix} \\
-    -auto ;
+    -auto || echo "seqret failed.";
 
   # get the locus tags annotated as list
   # only when results exist
