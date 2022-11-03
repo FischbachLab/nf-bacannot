@@ -17,7 +17,7 @@ aws batch submit-job \
 
 This pipeline generates A LOT of data per genome. Each genome contains a directory structure described [here](https://bacannot.readthedocs.io/en/latest/outputs). The easiest way to explore this data interactively is by using `docker`.
 
-Make sure you have `docker` installed. See instructions here.
+Make sure you have `docker` installed. See instructions [here](https://docs.docker.com/get-docker/).
 
 Once `docker` is installed and running, sync the genome directory that is of interest to you, by using the `aws s3 sync` command. The following commands will explain the process using the annotation outputs of the `Slackia-exigua-ATCC-700122-MAF-2` genome, present on S3 at `s3://genomics-workflow-core/Results/Bacannot/00_TEST/20221031/`. 
 
