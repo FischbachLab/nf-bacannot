@@ -11,7 +11,7 @@ process ANTISMASH {
   file(bacannot_db)
 
   output:
-  tuple val(prefix), path("antiSMASH/regions.gff"), emit: gff
+  tuple val(prefix), path("antiSMASH/regions.gff"), emit: gff, optional: true
   path("antiSMASH")                               , emit: all
   path("*_version.txt")                           , emit: version
 
@@ -30,7 +30,7 @@ process ANTISMASH {
     --output-dir antiSMASH \\
     --genefinding-tool none \\
     -c $task.cpus \\
-    --databases ${params.bacannot_db}/antismash_db \\
+    --databases ${bacannot_db}/antismash_db \\
     $genbank ;
 
   # enter results dir
@@ -44,10 +44,12 @@ process ANTISMASH {
     -fopenfile ${gbk_prefix}.gbk \\
     -osformat gff \\
     -osname_outseq ${gbk_prefix} \\
-    -auto || echo "seqret failed.";
+    -auto ;
 
-  if [ -f "*region*gbk" ]; then
-    # get the locus tags annotated as list
+  # get the locus tags annotated as list
+  # only when results exist
+  if ls *region*gbk 1> /dev/null 2>&1; then
+
     grep \\
       "locus_tag" \\
       *region*gbk | \\
@@ -62,9 +64,7 @@ process ANTISMASH {
       -w \\
       -f gene_ids.lst \\
       ${gbk_prefix}.gff > regions.gff ;
-  else
-    touch regions.gff
-    touch gene_ids.lst
+  
   fi
   """
 }
