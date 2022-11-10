@@ -30,7 +30,7 @@ process ANTISMASH {
     --output-dir antiSMASH \\
     --genefinding-tool none \\
     -c $task.cpus \\
-    --databases ${params.bacannot_db}/antismash_db \\
+    --databases ${bacannot_db}/antismash_db \\
     $genbank ;
 
   # enter results dir
@@ -44,7 +44,7 @@ process ANTISMASH {
     -fopenfile ${gbk_prefix}.gbk \\
     -osformat gff \\
     -osname_outseq ${gbk_prefix} \\
-    -auto || echo "seqret failed.";
+    -auto ;
 
   # get the locus tags annotated as list
   # only when results exist
