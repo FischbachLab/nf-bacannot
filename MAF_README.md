@@ -1,4 +1,27 @@
-# nf-baccannot
+# nf-bacannot
+
+This README describes how to launch the `Bacannot` pipeline on the MAF AWS Infrastructure.
+
+For information about the original pipeline and all the tools that are used by the analysis pipeline please refer to the [Bacannot README](README.md) file.
+
+- [nf-bacannot](#nf-bacannot)
+  - [A few things to note](#a-few-things-to-note)
+  - [Usage](#usage)
+    - [Helper Scripts](#helper-scripts)
+      - [`renameFastaHeaders.py`](#renamefastaheaderspy)
+        - [Example](#example)
+      - [`createSubmissionYaml.py`](#createsubmissionyamlpy)
+        - [Example](#example-1)
+  - [Exploring the results](#exploring-the-results)
+    - [Download results](#download-results)
+    - [Launch Interactive Data Browser](#launch-interactive-data-browser)
+    - [Shutdown the Data Browser](#shutdown-the-data-browser)
+
+## A few things to note
+
+- Please make sure that each contig id in the fasta files are less than `37` characters (before the first space). This is a hard limit set by the `prokka` pipeline. You may use the helper script [`renameFastaHeaders.py`](bin/renameFastaHeaders.py) for this. USAGE
+- Contig ID is only considered before the first space, please make sure that the ID before the first space is unique within the fasta file.
+- For simple use cases of this pipeline, there is a helper script [`createSubmissionYaml.py`](bin/createSubmissionYaml.py) that will accept a local folder of fasta files, an s3path and an output yaml file name. USAGE
 
 ## Usage
 
@@ -11,6 +34,32 @@ aws batch submit-job \
 "-profile","maf",\
 "--input","s3://genomics-workflow-core/Results/Bacannot/hCom2/20221102/inputs/hCom2.yaml"
 "--output","s3://genomics-workflow-core/Results/Bacannot/hCom2/20221102"
+```
+
+### Helper Scripts
+
+#### `renameFastaHeaders.py`
+
+```bash
+python renameFastaHeaders.py <ORIGINAL_FASTA_FILE> <RENAMED_FASTA_FILE>
+```
+
+##### Example
+
+```bash
+python renameFastaHeaders.py fasta_folder/genome.fasta renamed_fasta_folder/genome.fasta
+```
+
+#### `createSubmissionYaml.py`
+
+```bash
+python createSubmissionYaml.py <FASTA_DIR> s3://genomics-workflow-core/Results/Bacannot/<PROJECT>/<PREFIX>/inputs <PROJECT>_<PREFIX>.yaml
+```
+
+##### Example
+
+```bash
+python createSubmissionYaml.py renamed_fasta_folder s3://genomics-workflow-core/Results/Bacannot/hCom2/20221102/inputs hCom2.yaml
 ```
 
 ## Exploring the results
