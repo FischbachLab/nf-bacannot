@@ -4,8 +4,11 @@ This README describes how to launch the `Bacannot` pipeline on the MAF AWS Infra
 
 For information about the original pipeline and all the tools that are used by the analysis pipeline please refer to the [Bacannot README](README.md) file.
 
+## Table of contents
+
 - [nf-bacannot](#nf-bacannot)
-  - [A few things to note](#a-few-things-to-note)
+  - [Table of contents](#table-of-contents)
+  - [Please Note](#please-note)
   - [Usage](#usage)
     - [Helper Scripts](#helper-scripts)
       - [`renameFastaHeaders.py`](#renamefastaheaderspy)
@@ -17,11 +20,12 @@ For information about the original pipeline and all the tools that are used by t
     - [Launch Interactive Data Browser](#launch-interactive-data-browser)
     - [Shutdown the Data Browser](#shutdown-the-data-browser)
 
-## A few things to note
+## Please Note
 
-- Please make sure that each contig id in the fasta files are less than `37` characters (before the first space). This is a hard limit set by the `prokka` pipeline. You may use the helper script [`renameFastaHeaders.py`](bin/renameFastaHeaders.py) for this. USAGE
-- Contig ID is only considered before the first space, please make sure that the ID before the first space is unique within the fasta file.
-- For simple use cases of this pipeline, there is a helper script [`createSubmissionYaml.py`](bin/createSubmissionYaml.py) that will accept a local folder of fasta files, an s3path and an output yaml file name. USAGE
+- A Contig ID is defined as the sequence header before the first space, please make sure that each ID is unique within the fasta file.
+- Make sure that each Contig ID is less than `37` characters (before the first space). This is a hard limit set by the `prokka` pipeline. You may use a very basic helper script [`renameFastaHeaders.py`](bin/renameFastaHeaders.py) for this. [USAGE](#renamefastaheaderspy).
+- For simple use cases of this pipeline, where you only have a genome that needs annotation, there is a helper script [`createSubmissionYaml.py`](bin/createSubmissionYaml.py) that will accept a local folder of fasta files, an s3path and an output yaml file name. [USAGE](#createsubmissionyamlpy).
+- The [`createSubmissionYaml.py`](bin/createSubmissionYaml.py) script will also print a suggested pipeline submission command that you may use to launch the pipeline using the submission files that you've just created.
 
 ## Usage
 
