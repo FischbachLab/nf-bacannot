@@ -28,7 +28,7 @@ process BAKTA {
     script:
     """
     # download amrfinder db if not available
-    [ ! -d ${bakta_db}/amrfinderplus-db ] && amrfinder_update --database ${bakta_db}/amrfinderplus-db
+    [ ! -d ${params.bakta_db}/amrfinderplus-db ] && amrfinder_update --database ${params.bakta_db}/amrfinderplus-db
 
     # Save bakta version
     bakta --version &> bakta_version.txt ;
@@ -40,7 +40,7 @@ process BAKTA {
         --min-contig-length 200 \\
         --prefix ${prefix} \\
         --strain '${prefix}' \\
-        --db $bakta_db \\
+        --db ${params.bakta_db} \\
         $assembly
     
     # fix fasta headers
