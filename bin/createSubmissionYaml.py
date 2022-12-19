@@ -20,7 +20,7 @@ aws batch submit-job \
     --job-queue priority-maf-pipelines \
     --job-definition nextflow-production \
     --container-overrides command=FischbachLab/nf-bacannot,\
-"-profile",maf_bakta,\
+"-profile","maf_bakta",\
 "--input","s3://genomics-workflow-core/Results/Bacannot/UHGG_Annotation/20221219-test-1/inputs/test.yaml",\
 "--output","s3://genomics-workflow-core/Results/Bacannot/UHGG_Annotation/20221219-test-1"
 """
@@ -128,7 +128,7 @@ aws batch submit-job \\
     --job-queue priority-maf-pipelines \\
     --job-definition nextflow-production \\
     --container-overrides command=FischbachLab/nf-bacannot,\\
-"-profile",{launch_profile},\\
+"-profile","{launch_profile}",\\
 "--input","{s3_yaml_path}",\\
 "--output","{s3_output_dir.parent}"
 """
