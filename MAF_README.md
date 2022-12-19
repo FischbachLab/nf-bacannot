@@ -57,13 +57,23 @@ python renameFastaHeaders.py fasta_folder/genome.fasta renamed_fasta_folder/geno
 #### `createSubmissionYaml.py`
 
 ```bash
-python createSubmissionYaml.py <FASTA_DIR> s3://genomics-workflow-core/Results/Bacannot/<PROJECT>/<PREFIX>/inputs <PROJECT>_<PREFIX>.yaml
+python createSubmissionYaml.py \
+    -g <Local or S3 Path to Genome(s) directory> \
+    -project <Name of the project that this data belongs to> \
+    -prefix <Subset of the data in this Project; or date in YYYYMMDD format> \
+    -s <Output YAML file name> \
+    -b (Optional: if you wish to use Bakta, instead of the standard Prokka, Most people SHOULD NOT use this flag)
 ```
 
 ##### Example
 
 ```bash
-python createSubmissionYaml.py renamed_fasta_folder s3://genomics-workflow-core/Results/Bacannot/hCom2/20221102/inputs hCom2.yaml
+python createSubmissionYaml.py \
+    -g s3://maf-users/Nathan_Johns/Scratch/ \
+    -project UHGG_Annotation \
+    -prefix 20221219-test-1 \
+    -s test.yaml \
+    -b
 ```
 
 ## Exploring the results
