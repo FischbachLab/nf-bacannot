@@ -73,7 +73,7 @@ workflow BACANNOT {
       if (params.bakta_db) {
         BAKTA(
           parsed_inputs.annotation_ch.mix( FLYE.out.results, UNICYCLER.out.results ),
-          file(params.bakta_db, checkIfExists: true)  
+          file(params.bakta_db)
         )
         annotation_out_ch = BAKTA.out
       } else {
