@@ -9,7 +9,7 @@ process BAKTA {
 
     input:
     tuple val(prefix), val(entrypoint), file(sread1), file(sread2), file(sreads), file(lreads), val(lr_type), file(fast5), file(assembly), val(resfinder_species)
-    file(bakta_db)
+    val(bakta_db)
 
     output:
     // Grab all outputs
