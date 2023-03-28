@@ -9,6 +9,7 @@ For information about the original pipeline and all the tools that are used by t
 - [nf-bacannot](#nf-bacannot)
   - [Table of contents](#table-of-contents)
   - [Please Note](#please-note)
+  - [Quick Test](#quick-test)
   - [Usage](#usage)
     - [Helper Scripts](#helper-scripts)
       - [`renameFastaHeaders.py`](#renamefastaheaderspy)
@@ -26,6 +27,19 @@ For information about the original pipeline and all the tools that are used by t
 - Make sure that each Contig ID is less than `37` characters (before the first space). This is a hard limit set by the `prokka` pipeline. You may use a very basic helper script [`renameFastaHeaders.py`](../bin/renameFastaHeaders.py) for this. [USAGE](#renamefastaheaderspy).
 - For simple use cases of this pipeline, where you only have a genome that needs annotation, there is a helper script [`createSubmissionYaml.py`](../bin/createSubmissionYaml.py) that will accept a local folder of fasta files, an s3path and an output yaml file name. [USAGE](#createsubmissionyamlpy).
 - The [`createSubmissionYaml.py`](../bin/createSubmissionYaml.py) script will also print a suggested pipeline submission command that you may use to launch the pipeline using the submission files that you've just created.
+
+## Quick Test
+
+```bash
+aws batch submit-job \
+    --job-name nf-bacannot-1genome \
+    --job-queue priority-maf-pipelines \
+    --job-definition nextflow-production \
+    --container-overrides command=FischbachLab/nf-bacannot,\
+"-profile","maf",\
+"--input","s3://genomics-workflow-core/Results/Bacannot/00_TEST/inputs/Slackia-exigua-ATCC-700122-MAF-2.yaml",\
+"--output","s3://genomics-workflow-core/Results/Bacannot/00_TEST/20230328"
+```
 
 ## Usage
 
