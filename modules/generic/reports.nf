@@ -8,6 +8,7 @@ process REPORT {
   
   output:
   path '*.html', emit: results
+  path 'tables', emit: results
 
   script:
   def generic_annotator = (params.bakta_db) ? "bakta" : "prokka"

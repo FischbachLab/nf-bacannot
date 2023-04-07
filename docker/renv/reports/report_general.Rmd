@@ -166,3 +166,15 @@ datatable(barrnap_gff,
 
 ```{r kegg_svg, echo=FALSE, results='asis', eval=kegg_not_null, child='yes_kegg.Rmd'}
 ```
+
+```{r write_outputs, include=FALSE, echo=FALSE} 
+# make output directory
+output_dir <- "tables"
+dir.create(output_dir, showWarnings = FALSE)
+
+# write outputs
+barrnap_gff %>% write.table(file = "barrnap.tsv", sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
+t(df) %>% write.table(file = "generic_annotation.tsv", sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
+mlst_txt %>% write.table(file = "mlst.tsv", sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
+refseq_masher_txt %>% write.table(file = "refseq_masher.tsv", sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
+```
