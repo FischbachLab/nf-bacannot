@@ -32,13 +32,13 @@ For information about the original pipeline and all the tools that are used by t
 
 ```bash
 aws batch submit-job \
-    --job-name nf-bacannot-1genome \
+    --job-name nf-bacannot-mrsa \
     --job-queue priority-maf-pipelines \
     --job-definition nextflow-production \
     --container-overrides command=FischbachLab/nf-bacannot,\
 "-profile","maf",\
-"--input","s3://genomics-workflow-core/Results/Bacannot/00_TEST/inputs/Slackia-exigua-ATCC-700122-MAF-2.yaml",\
-"--output","s3://genomics-workflow-core/Results/Bacannot/00_TEST/20230328"
+"--input","s3://genomics-workflow-core/Results/Bacannot/MRSA/20221102/MRSA.yaml",\
+"--output","s3://genomics-workflow-core/Results/Bacannot/00_TEST/MRSA/20230407"
 ```
 
 ## Usage
@@ -70,24 +70,34 @@ python renameFastaHeaders.py fasta_folder/genome.fasta renamed_fasta_folder/geno
 
 #### `createSubmissionYaml.py`
 
+Install dependency:
+
+```bash
+pip install -U ruamel.yaml cloudpathlib[s3]
+```
+
+Run the script:
+
 ```bash
 python createSubmissionYaml.py \
     -g <Local or S3 Path to Genome(s) directory> \
     -project <Name of the project that this data belongs to> \
     -prefix <Subset of the data in this Project; or date in YYYYMMDD format> \
     -s <Output YAML file name> \
-    -b (Optional: if you wish to use Bakta, instead of the standard Prokka, Most people SHOULD NOT use this flag)
+    --extension fna (Optional: if you wish to use a different extension for the fasta files, default is fasta) \
+    --copy-genomes (Optional: if you wish to copy the input genomes to the output directory, default is False) \
+    --use-bakta (Optional: if you wish to use Bakta, instead of the standard Prokka, Most people SHOULD NOT use this flag, default is False)
+    
 ```
 
 ##### Example
 
 ```bash
 python createSubmissionYaml.py \
-    -g s3://maf-users/Nathan_Johns/Scratch/ \
-    -project UHGG_Annotation \
-    -prefix 20221219-test-1 \
-    -s test.yaml \
-    -b
+    -g s3://genomics-workflow-core/Results/BinQC/MITI-MCB/20230324/fasta/ \
+    -project MITI-MCB \
+    -prefix 20230411 \
+    -s test.yaml
 ```
 
 ## Exploring the results
