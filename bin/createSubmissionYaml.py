@@ -40,7 +40,7 @@ parser.add_argument(
     "--genome-dir",
     type=str,
     required=True,
-    help="Directory with all the genomes with extension '.fna'",
+    help="Directory with all the genomes with extension 'fasta'",
 )
 parser.add_argument(
     "-project",
@@ -69,7 +69,6 @@ parser.add_argument(
     ),
 )
 parser.add_argument(
-    "-b",
     "--use-bakta",
     action="store_true",
     help="Use 'Bakta' to annotate the genomes.",
@@ -81,7 +80,21 @@ parser.add_argument(
     required=False,
     help="Name of the seedfile for the pipeline. By default, it is a combination of <PROJECT> and <PREFIX>",
 )
-
+parser.add_argument(
+    "-e",
+    "--extension",
+    default="fasta",
+    type=str,
+    required=False,
+    help="Extension for the genome files. Default is 'fasta'",
+)
+parser.add_argument(
+    "--copy-genomes",
+    default=False,
+    action="store_true",
+    required=False,
+    help="Should input genomes be copied to the output path?",
+)
 args = parser.parse_args()
 
 yaml = YAML()
@@ -104,19 +117,18 @@ s3_yaml_path = s3_output_dir / samplesheet_yaml.name
 yaml_dict = {"samplesheet": []}
 
 # Upload genomes to S3
-for fasta_file in fasta_dir.glob("*.fna"):
-    s3path = s3_fasta_dir / fasta_file.name
-    yaml_dict["samplesheet"].append(
-        {"id": str(fasta_file.stem), "assembly": str(s3path)}
-    )
-    s3path.upload_from(fasta_file)
+for fasta_file in fasta_dir.glob(f"*.{args.extension}"):
+    s3path = fasta_file
+    # If genome is not already on S3, upload it and update the S3path
+    if (not isinstance(s3path, CloudPath)) or args.copy_genomes:
+        s3path = s3_fasta_dir / fasta_file.name
+        s3path.upload_from(fasta_file)
+
+    yaml_dict["samplesheet"].append({"id": str(s3path.stem), "assembly": str(s3path)})
 
 # Write YAML file to S3
 with s3_yaml_path.open("w") as s3_yaml_file:
     yaml.dump(yaml_dict, s3_yaml_file)
-
-# with open(samplesheet_yaml, "w") as s3_yaml_file:
-#     yaml.dump(yaml_dict, s3_yaml_file)
 
 launch_profile = "maf_bakta" if args.use_bakta else "maf"
 
