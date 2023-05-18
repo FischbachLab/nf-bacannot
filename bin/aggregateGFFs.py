@@ -6,7 +6,7 @@ import logging
 
 def usage():
     parser = argparse.ArgumentParser(
-        description="Create submission YAML file for bacannot pipeline"
+        description="Copies GFF files from each sample folder to the aggregate folder."
     )
     parser.add_argument(
         "-p",

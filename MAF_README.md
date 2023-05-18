@@ -16,6 +16,8 @@ For information about the original pipeline and all the tools that are used by t
         - [Example](#example)
       - [`createSubmissionYaml.py`](#createsubmissionyamlpy)
         - [Example](#example-1)
+      - [`aggregateGFFs.py`](#aggregategffspy)
+        - [Example](#example-2)
   - [Exploring the results](#exploring-the-results)
     - [Download results](#download-results)
     - [Launch Interactive Data Browser](#launch-interactive-data-browser)
@@ -70,9 +72,12 @@ python renameFastaHeaders.py fasta_folder/genome.fasta renamed_fasta_folder/geno
 
 #### `createSubmissionYaml.py`
 
+Create submission YAML file for bacannot pipeline
+
 Install dependency:
 
 ```bash
+conda create -n bacannot python=3.11
 pip install -U ruamel.yaml cloudpathlib[s3]
 ```
 
@@ -98,6 +103,18 @@ python createSubmissionYaml.py \
     -project MITI-MCB \
     -prefix 20230411 \
     -s test.yaml
+```
+
+#### `aggregateGFFs.py`
+
+Copies GFF files from each sample folder to the aggregate folder.
+
+##### Example
+
+```bash
+python aggregateGFFs.py \
+  -p s3://genomics-workflow-core/Results/Bacannot/MITI-MCB/20230515 \
+  -s s3://genomics-workflow-core/Results/Bacannot/MITI-MCB/20230515/inputs/DELETE_ME.yaml 
 ```
 
 ## Exploring the results
