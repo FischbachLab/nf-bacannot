@@ -123,14 +123,16 @@ def yaml_from_dir(args):
     yaml_dict = {"samplesheet": []}
 
     # Upload genomes to S3
-    for fasta_file in fasta_dir.glob(f"*.{args.extension}"):
-        s3path = fasta_file
-        # If genome is not already on S3, upload it and update the S3path
-        if (not isinstance(s3path, CloudPath)) or args.copy_genomes:
-            s3path = s3_fasta_dir / fasta_file.name
-            s3path.upload_from(fasta_file)
+#    for fasta_file in fasta_dir.glob(f"*.{args.extension}"):
+    for fasta_file in fasta_dir.iterdir():
+        if fasta_file.name.endswith(args.extension):
+            s3path = fasta_file
+            # If genome is not already on S3, upload it and update the S3path
+            if (not isinstance(s3path, CloudPath)) or args.copy_genomes:
+                s3path = s3_fasta_dir / fasta_file.name
+                s3path.upload_from(fasta_file)
 
-        yaml_dict["samplesheet"].append(
+            yaml_dict["samplesheet"].append(
             {"id": str(s3path.stem), "assembly": str(s3path)}
         )
     return s3_output_dir, s3_yaml_path, yaml_dict
@@ -204,6 +206,8 @@ def main():
     # Write YAML file to S3
     with s3_yaml_path.open("w") as s3_yaml_file:
         yaml.dump(yaml_dict, s3_yaml_file)
+
+    print(yaml_dict)
 
     launch_profile = "maf_bakta" if args.use_bakta else "maf"
 
